@@ -19,8 +19,8 @@ void EmptyLinkFunctionForGeneratedCodePaintShooterOwens_init() {}
 			static const UE4CodeGen_Private::FPackageParams PackageParams = {
 				"/Script/PaintShooterOwens",
 				PKG_CompiledIn | 0x00000000,
-				0xAE5C5D55,
-				0xE6B79E50,
+				0x2C938F9A,
+				0x9169C8AE,
 				nullptr, 0,
 				METADATA_PARAMS(nullptr, 0)
 			};
