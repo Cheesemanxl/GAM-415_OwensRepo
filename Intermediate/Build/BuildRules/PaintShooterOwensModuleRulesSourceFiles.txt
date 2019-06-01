@@ -1,5 +1,6 @@
 C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Source\PaintShooterOwens\PaintShooterOwens.Build.cs
 C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\ComputeShader\Source\ComputeShader\ComputeShader.Build.cs
+C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\Foo\Source\Foo\Foo.Build.cs
 C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\PixelShader\Source\PixelShader\PixelShader.Build.cs
 C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\RuntimeMeshComponent\Source\RuntimeMeshComponent\RuntimeMeshComponent.Build.cs
 C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\RuntimeMeshComponent\Source\RuntimeMeshComponentEditor\RuntimeMeshComponentEditor.Build.cs

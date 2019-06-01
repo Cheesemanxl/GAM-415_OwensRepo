@@ -429,6 +429,9 @@
 		<None Include="..\..\Plugins\ComputeShader\Shaders\Private\FastMath.ush" />
 		<None Include="..\..\Plugins\ComputeShader\Shaders\Private\InstancedStereo.ush" />
 		<None Include="..\..\Plugins\ComputeShader\Shaders\Private\Random.ush" />
+		<None Include="..\..\Plugins\Foo\Foo.uplugin" />
+		<None Include="..\..\Plugins\Foo\Resources\Icon128.png" />
+		<None Include="..\..\Plugins\Foo\Shaders\Private\MyShader.usf" />
 		<None Include="..\..\Plugins\PixelShader\PixelShader.uplugin" />
 		<None Include="..\..\Plugins\PixelShader\Shaders\Private\Common.ush" />
 		<None Include="..\..\Plugins\PixelShader\Shaders\Private\CommonViewUniformBuffer.ush" />
@@ -439,6 +442,13 @@
 		<None Include="..\..\Plugins\PixelShader\Shaders\Private\Random.ush" />
 		<None Include="..\..\Plugins\RuntimeMeshComponent\RuntimeMeshComponent.uplugin" />
 		<None Include="..\..\Plugins\RuntimeMeshComponent\Resources\Icon128.png" />
+		<None Include="..\..\Plugins\Foo\Source\Foo\Foo.Build.cs" />
+		<ClInclude Include="..\..\Plugins\Foo\Source\Foo\Classes\LensDistortionAPI.h" />
+		<ClInclude Include="..\..\Plugins\Foo\Source\Foo\Classes\LensDistortionBlueprintLibrary.h" />
+		<ClCompile Include="..\..\Plugins\Foo\Source\Foo\Private\Foo.cpp" />
+		<ClCompile Include="..\..\Plugins\Foo\Source\Foo\Private\LensDistortionBlueprintLibrary.cpp" />
+		<ClCompile Include="..\..\Plugins\Foo\Source\Foo\Private\LensDistortionRendering.cpp" />
+		<ClInclude Include="..\..\Plugins\Foo\Source\Foo\Public\Foo.h" />
 		<None Include="..\..\Plugins\PixelShader\Source\PixelShader\PixelShader.Build.cs" />
 		<ClCompile Include="..\..\Plugins\PixelShader\Source\PixelShader\Private\PixelShaderDeclaration.cpp" />
 		<ClInclude Include="..\..\Plugins\PixelShader\Source\PixelShader\Private\PixelShaderDeclaration.h" />
