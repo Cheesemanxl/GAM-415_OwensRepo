@@ -14,10 +14,18 @@
 			]
 		}
 	],
-	"Plugins": [
-		{
-			"Name": "Foo",
-			"Enabled": true
-		}
-	]
+  "Plugins": [
+    {
+      "Name": "Foo",
+      "Enabled": true
+    },
+    {
+      "Name": "PixelShader",
+      "Enabled": true
+    },
+    {
+      "Name": "ComputeShader",
+      "Enabled": true
+    }
+  ]
 }

@@ -46,7 +46,7 @@ APaintShooterOwensCharacter::APaintShooterOwensCharacter()
 	FP_Gun->bCastDynamicShadow = false;
 	FP_Gun->CastShadow = false;
 	// FP_Gun->SetupAttachment(Mesh1P, TEXT("GripPoint"));
-	FP_Gun->SetupAttachment(RootComponent);
+	//FP_Gun->SetupAttachment(RootComponent);
 
 	FP_MuzzleLocation = CreateDefaultSubobject<USceneComponent>(TEXT("MuzzleLocation"));
 	FP_MuzzleLocation->SetupAttachment(FP_Gun);
@@ -81,6 +81,15 @@ APaintShooterOwensCharacter::APaintShooterOwensCharacter()
 
 	// Uncomment the following line to turn motion controllers on by default:
 	//bUsingMotionControllers = true;
+
+	EndColorBuildup = 0;
+	EndColorBuildupDirection = 1;
+	PixelShaderTopLeftColor = FColor::Green;
+	ComputeShaderSimulationSpeed = 1.0;
+	ComputeShaderBlend = 0.5f;
+	ComputeShaderBlendScalar = 0;
+	TotalElapsedTime = 0;
+
 }
 
 void APaintShooterOwensCharacter::BeginPlay()
@@ -102,6 +111,10 @@ void APaintShooterOwensCharacter::BeginPlay()
 		VR_Gun->SetHiddenInGame(true, true);
 		Mesh1P->SetHiddenInGame(false, true);
 	}
+
+	PixelShading = new FPixelShaderUsageExample(PixelShaderTopLeftColor, GetWorld()->Scene->GetFeatureLevel());
+	ComputeShading = new FComputeShaderUsageExample(ComputeShaderSimulationSpeed, 1024, 1024, GetWorld()->Scene->GetFeatureLevel());
+
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -109,6 +122,12 @@ void APaintShooterOwensCharacter::BeginPlay()
 
 void APaintShooterOwensCharacter::SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent)
 {
+	//ShaderPluginDemo Specific input mappings  
+	InputComponent->BindAction("SavePixelShaderOutput", IE_Pressed, this, &APaintShooterOwensCharacter::SavePixelShaderOutput);
+	InputComponent->BindAction("SaveComputeShaderOutput", IE_Pressed, this, &APaintShooterOwensCharacter::SaveComputeShaderOutput);
+	InputComponent->BindAxis("ComputeShaderBlend", this, &APaintShooterOwensCharacter::ModifyComputeShaderBlend);
+
+
 	// set up gameplay key bindings
 	check(PlayerInputComponent);
 
@@ -140,32 +159,27 @@ void APaintShooterOwensCharacter::SetupPlayerInputComponent(class UInputComponen
 void APaintShooterOwensCharacter::OnFire()
 {
 	// try and fire a projectile
-	if (ProjectileClass != NULL)
-	{
-		UWorld* const World = GetWorld();
-		if (World != NULL)
-		{
-			if (bUsingMotionControllers)
-			{
-				const FRotator SpawnRotation = VR_MuzzleLocation->GetComponentRotation();
-				const FVector SpawnLocation = VR_MuzzleLocation->GetComponentLocation();
-				World->SpawnActor<APaintShooterOwensProjectile>(ProjectileClass, SpawnLocation, SpawnRotation);
-			}
-			else
-			{
-				const FRotator SpawnRotation = GetControlRotation();
-				// MuzzleOffset is in camera space, so transform it to world space before offsetting from the character location to find the final muzzle position
-				const FVector SpawnLocation = ((FP_MuzzleLocation != nullptr) ? FP_MuzzleLocation->GetComponentLocation() : GetActorLocation()) + SpawnRotation.RotateVector(GunOffset);
-
-				//Set Spawn Collision Handling Override
-				FActorSpawnParameters ActorSpawnParams;
-				ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-
-				// spawn the projectile at the muzzle
-				World->SpawnActor<APaintShooterOwensProjectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+	FHitResult HitResult;
+	FVector StartLocation = FirstPersonCameraComponent->GetComponentLocation();
+	FRotator Direction = FirstPersonCameraComponent->GetComponentRotation();
+	FVector EndLocation = StartLocation + Direction.Vector() * 10000;
+	FCollisionQueryParams QueryParams;
+	QueryParams.AddIgnoredActor(this);
+	if (GetWorld()->LineTraceSingleByChannel(HitResult, StartLocation, EndLocation, ECC_Visibility, QueryParams)) {
+		TArray <UStaticMeshComponent*> StaticMeshComponents = TArray <UStaticMeshComponent*>();
+		AActor* HitActor = HitResult.GetActor();
+		if (NULL != HitActor) {
+			HitActor->GetComponents <UStaticMeshComponent>(StaticMeshComponents);
+			for (int32 i = 0; i < StaticMeshComponents.Num(); i++) {
+				UStaticMeshComponent * CurrentStaticMeshPtr = StaticMeshComponents[i];
+				CurrentStaticMeshPtr->SetMaterial(0, MaterialToApplyToClickedObject);
+				UMaterialInstanceDynamic* MID = CurrentStaticMeshPtr->CreateAndSetMaterialInstanceDynamic(0);
+				UTexture* CastedRenderTarget = Cast <UTexture>(RenderTarget);
+				MID->SetTextureParameterValue("InputTexture", CastedRenderTarget);
 			}
 		}
 	}
+
 
 	// try and play the sound if specified
 	if (FireSound != NULL)
@@ -296,4 +310,42 @@ bool APaintShooterOwensCharacter::EnableTouchscreenMovement(class UInputComponen
 	}
 	
 	return false;
+}
+
+void APaintShooterOwensCharacter::BeginDestroy() {
+	Super::BeginDestroy();
+	if (PixelShading) {
+		delete PixelShading;
+	}
+	if (ComputeShading) {
+		delete ComputeShading;
+	}
+}
+
+//Saving functions
+void APaintShooterOwensCharacter::SavePixelShaderOutput() {
+	PixelShading->Save();
+}
+void APaintShooterOwensCharacter::SaveComputeShaderOutput() {
+	ComputeShading->Save();
+}
+void APaintShooterOwensCharacter::ModifyComputeShaderBlend(float NewScalar) {
+	ComputeShaderBlendScalar = NewScalar;
+}
+void APaintShooterOwensCharacter::Tick(float DeltaSeconds) {
+	Super::Tick(DeltaSeconds);
+	TotalElapsedTime += DeltaSeconds;
+	if (PixelShading) {
+		EndColorBuildup = FMath::Clamp(EndColorBuildup + DeltaSeconds * EndColorBuildupDirection, 0.0f, 1.0f);
+		if (EndColorBuildup >= 1.0 || EndColorBuildup <= 0) {
+			EndColorBuildupDirection *= -1;
+		}
+		FTexture2DRHIRef InputTexture = NULL;
+		if (ComputeShading) {
+			ComputeShading->ExecuteComputeShader(TotalElapsedTime);
+			InputTexture = ComputeShading->GetTexture(); //This is the output texture from the compute shader that we will pass to the pixel shader. 
+		}
+		ComputeShaderBlend = FMath::Clamp(ComputeShaderBlend + ComputeShaderBlendScalar * DeltaSeconds, 0.0f, 1.0f);
+		PixelShading->ExecutePixelShader(RenderTarget, InputTexture, FColor(EndColorBuildup * 255, 0, 0, 255), ComputeShaderBlend);
+	}
 }

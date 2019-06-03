@@ -77,6 +77,8 @@
 "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-CoreUObject.lib"
 "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-InputCore.lib"
 "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-HeadMountedDisplay.lib"
+"C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\PixelShader\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-PixelShader.lib"
+"C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\ComputeShader\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-ComputeShader.lib"
 "C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\RuntimeMeshComponent\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-RuntimeMeshComponent.lib"
 "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-RHI.lib"
 "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Development\UE4Editor-RenderCore.lib"

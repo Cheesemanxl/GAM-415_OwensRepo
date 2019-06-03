@@ -355,6 +355,12 @@
 /I "E:\Epic Games\UE_4.18\Engine\Source\Runtime\AudioMixer\Public\DSP"
 /I "E:\Epic Games\UE_4.18\Engine\Intermediate\Build\Win64\UE4Editor\Inc\AudioMixer"
 /I "E:\Epic Games\UE_4.18\Engine\Source\Runtime\AudioMixer"
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\PixelShader\Source
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\PixelShader\Source\PixelShader\Public
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\PixelShader\Source\PixelShader
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\ComputeShader\Source
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\ComputeShader\Source\ComputeShader\Public
+/I C:\Users\Cody\Desktop\GameEngine\BookProjects\PaintShooterOwens\Plugins\ComputeShader\Source\ComputeShader
 /I "E:\Epic Games\UE_4.18\Engine\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent\Public"
 /I "E:\Epic Games\UE_4.18\Engine\Plugins\Runtime\ProceduralMeshComponent\Intermediate\Build\Win64\UE4Editor\Inc\ProceduralMeshComponent"
 /I "E:\Epic Games\UE_4.18\Engine\Plugins\Runtime\ProceduralMeshComponent\Source\ProceduralMeshComponent"

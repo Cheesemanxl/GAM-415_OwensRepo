@@ -2,8 +2,11 @@
 
 #pragma once
 
+#include "Engine.h"
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "PixelShaderUsageExample.h"
+#include "ComputeShaderUsageExample.h"  
 #include "PaintShooterOwensCharacter.generated.h"
 
 class UInputComponent;
@@ -137,6 +140,33 @@ public:
 	FORCEINLINE class USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	FORCEINLINE class UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
+
+
+public:
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
+		FColor PixelShaderTopLeftColor;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
+		float ComputeShaderSimulationSpeed;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
+		UMaterialInterface * MaterialToApplyToClickedObject;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = ShaderDemo)
+		UTextureRenderTarget2D * RenderTarget;
+protected:
+	virtual void BeginDestroy() override;
+	virtual void Tick(float DeltaSeconds) override;
+
+private:
+	FPixelShaderUsageExample * PixelShading;
+	FComputeShaderUsageExample * ComputeShading;
+	float EndColorBuildup;
+	float EndColorBuildupDirection;
+	float ComputeShaderBlendScalar;
+	float ComputeShaderBlend;
+	float TotalElapsedTime;
+	void ModifyComputeShaderBlend(float NewScalar);
+	void SavePixelShaderOutput();
+	void SaveComputeShaderOutput();
 
 };
 

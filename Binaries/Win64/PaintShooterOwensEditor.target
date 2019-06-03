@@ -48,18 +48,6 @@
 			"Type": "ImportLibrary"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor-ComputeShader.dll",
-			"Type": "DynamicLibrary"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor-ComputeShader.pdb",
-			"Type": "SymbolFile"
-		},
-		{
-			"Path": "$(ProjectDir)/Plugins/ComputeShader/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ComputeShader.lib",
-			"Type": "ImportLibrary"
-		},
-		{
 			"Path": "$(ProjectDir)/Plugins/PixelShader/Binaries/Win64/UE4Editor-PixelShader.dll",
 			"Type": "DynamicLibrary"
 		},
@@ -69,6 +57,18 @@
 		},
 		{
 			"Path": "$(ProjectDir)/Plugins/PixelShader/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-PixelShader.lib",
+			"Type": "ImportLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor-ComputeShader.dll",
+			"Type": "DynamicLibrary"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor-ComputeShader.pdb",
+			"Type": "SymbolFile"
+		},
+		{
+			"Path": "$(ProjectDir)/Plugins/ComputeShader/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ComputeShader.lib",
 			"Type": "ImportLibrary"
 		},
 		{
@@ -5752,11 +5752,11 @@
 			"Type": "RequiredResource"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor.modules",
+			"Path": "$(ProjectDir)/Plugins/PixelShader/Binaries/Win64/UE4Editor.modules",
 			"Type": "RequiredResource"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/PixelShader/Binaries/Win64/UE4Editor.modules",
+			"Path": "$(ProjectDir)/Plugins/ComputeShader/Binaries/Win64/UE4Editor.modules",
 			"Type": "RequiredResource"
 		},
 		{
@@ -5778,11 +5778,11 @@
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/ComputeShader/ComputeShader.uplugin",
+			"Path": "$(ProjectDir)/Plugins/PixelShader/PixelShader.uplugin",
 			"Type": "UFS"
 		},
 		{
-			"Path": "$(ProjectDir)/Plugins/PixelShader/PixelShader.uplugin",
+			"Path": "$(ProjectDir)/Plugins/ComputeShader/ComputeShader.uplugin",
 			"Type": "UFS"
 		},
 		{
